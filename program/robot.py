@@ -12,7 +12,7 @@ text_path = Path(__file__).parent.parent / "data" / "text_data"
 @app.route('/')
 def index():
     
-    info = request.values.get("clock")
+    info = request.values.get("clock").replace('\n', '').replace('\r', '')
     # info = "打卡：4：学习英语和物理：zhangjie"
     list = re.split(':|：', info)
     if len(list) != 4:
