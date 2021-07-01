@@ -79,7 +79,7 @@ def index():
 
     today = datetime.date.today()
     today_str = today.strftime(time_format)
-    today_str = "2021-06-27"
+    # today_str = "2021-06-27"
     #判断今天该成员是否已打卡
     select_sql = "select * from clock where name = \"{0}\" and date = \"{1}\"".format(name, today_str)
     query_result = cursor.execute(select_sql).rowcount
