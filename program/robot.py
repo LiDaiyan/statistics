@@ -13,6 +13,7 @@ text_path = Path(__file__).parent.parent / "data" / "text_data"
 def index():
     
     info = request.values.get("clock").replace('\n', '').replace('\r', '')
+    date = request.values.get("date")
     # info = "打卡：4：学习英语和物理：zhangjie"
     list = re.split(':|：', info)
     if len(list) != 4:
@@ -79,7 +80,9 @@ def index():
 
     today = datetime.date.today()
     today_str = today.strftime(time_format)
-    # today_str = "2021-06-27"
+    # 参数中有日期则使用参数日期
+    if date:
+        today_str = date
     #判断今天该成员是否已打卡
     select_sql = "select * from clock where name = \"{0}\" and date = \"{1}\"".format(name, today_str)
     query_result = cursor.execute(select_sql).rowcount
