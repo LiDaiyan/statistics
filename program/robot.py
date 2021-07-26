@@ -121,14 +121,14 @@ def sum(type):
     if(type == 1):
         date_begin = (today -timedelta(days=today.weekday() + 7)).strftime(time_format)
         date_end = (today - timedelta(days=today.weekday() + 1)).strftime(time_format)
-        file_name = date_begin[-5:] + " - " + date_end[-5:] + "打卡统计"
+        file_name = date_begin[-5:] + " - " + date_end[-5:] + " 打卡统计"
     # 统计月数据
     else:
         last_day_last_month = datetime.datetime(today.year, today.month, 1) - timedelta(days=1)
         first_day_last_month = datetime.datetime(last_day_last_month.year, last_day_last_month.month, 1)
         date_begin = first_day_last_month.strftime(time_format)
         date_end =  last_day_last_month.strftime(time_format)
-        file_name = dic[first_day_last_month.month] + "月打卡统计"
+        file_name = dic[first_day_last_month.month] + " 月打卡统计"
 
 
     select_sum = "select name, count(val), round(avg(val), 2) as val_avg from clock where date >=  \"{0}\" and date <=  \"{1}\" group by name".format(date_begin, date_end)
