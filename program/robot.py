@@ -29,8 +29,9 @@ def index():
     content = list[2]
     val = list[1]
 
-    array = ["1", "2", "3", "4", "5"]
-    if(val not in array):
+    try:
+        float(val)
+    except ValueError:
         return "打卡失败，数值错误"
 
     conn = sqlite3.connect(db_path)
@@ -122,13 +123,15 @@ def sum(type):
         date_begin = (today -timedelta(days=today.weekday() + 7)).strftime(time_format)
         date_end = (today - timedelta(days=today.weekday() + 1)).strftime(time_format)
         file_name = date_begin[-5:] + " - " + date_end[-5:] + " 打卡统计"
+        path = week_sum_path / (file_name + ".md")
     # 统计月数据
     else:
         last_day_last_month = datetime.datetime(today.year, today.month, 1) - timedelta(days=1)
         first_day_last_month = datetime.datetime(last_day_last_month.year, last_day_last_month.month, 1)
         date_begin = first_day_last_month.strftime(time_format)
         date_end =  last_day_last_month.strftime(time_format)
-        file_name = dic[first_day_last_month.month] + " 月打卡统计"
+        file_name = dic[first_day_last_month.month] + "月打卡统计"
+        path = month_sum_path / (file_name + ".md")
 
 
     select_sum = "select name, count(val), round(avg(val), 2) as val_avg from clock where date >=  \"{0}\" and date <=  \"{1}\" group by name".format(date_begin, date_end)
@@ -138,7 +141,6 @@ def sum(type):
     for i in result:
         text = text+ "|" + str(i[0]) + "|" + str(i[1]) + "|" + str(i[2]) + "|" + get_evaluate(i[2]) + "|\n"
     
-    path = week_sum_path / (file_name + ".md")
     f = open(path, 'w', encoding="utf-8")
     f.write(text + "\n\n")
 
