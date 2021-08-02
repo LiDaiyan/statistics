@@ -155,11 +155,11 @@ def print_today(info, today_str):
 def get_evaluate(num):
     if(num >= 0 and num <= 1.5):
         return "毫无进展"
-    elif(num >= 1.6 and num <= 2.5):
+    elif(num > 1.5 and num <= 2.5):
         return "进展缓慢"
-    elif(num >= 2.6 and num <= 3.5):
+    elif(num > 2.5 and num <= 3.5):
         return "完成大部分计划"
-    elif(num >= 3.6 and num <= 4.6):
+    elif(num > 3.5 and num <= 4.6):
         return "完成计划"
     
     return "超额完成"
