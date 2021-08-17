@@ -134,7 +134,7 @@ def sum(type):
         path = month_sum_path / (file_name + ".md")
 
 
-    select_sum = "select name, count(val), round(avg(val), 2) as val_avg from clock where date >=  \"{0}\" and date <=  \"{1}\" group by name".format(date_begin, date_end)
+    select_sum = "select name, count(val), round(avg(val), 2) as val_avg from clock where date >=  \"{0}\" and date <=  \"{1}\" group by name  order by count(val) desc, val_avg desc".format(date_begin, date_end)
     result = cursor.execute(select_sum)
 
     text = "**{0}**\n\n| 打卡人     | 打卡次数 | 自我评价 | 计划完成情况   |\n| ---------- | -------- | -------- | -------------- |\n".format(file_name)
