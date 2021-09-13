@@ -21,7 +21,7 @@ def index():
     info = request.values.get("clock").replace('\n', '').replace('\r', '').replace(' ', '')
     date = request.values.get("date")
     # info = "打卡：4：学习英语和物理：zhangjie"
-    list = re.split(':|：', info)
+    list = re.split(':|：|∶', info)
     if len(list) != 4:
         return "打卡失败，冒号使用不规范"
     
